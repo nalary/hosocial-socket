@@ -1,17 +1,19 @@
-const express = require('express');
-const app = express();
-const http = require('http');
-const server = http.createServer(app);
-const { Server } = require('socket.io');
-const cors = require('cors');
-
-app.use(cors());
-
-const io = new Server({
+const app = require("express")();
+const httpServer = require("http").createServer(app);
+const io = require("socket.io")(httpServer, {
     cors: {
         origin: "http://localhost:3000"
     }
 });
+const cors = require('cors');
+
+app.use(cors());
+
+// const io = new Server({
+//     cors: {
+//         origin: "http://localhost:3000"
+//     }
+// });
 
 let users = [];
 
@@ -70,5 +72,7 @@ io.on("connection", (socket) => {
     });
 });
 
-io.listen(process.env.PORT || 5000);
-
+// io.listen(process.env.PORT || 5000);
+httpServer.listen(process.env.PORT || 4000, () => {
+    console.log("server on");
+});
