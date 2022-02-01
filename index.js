@@ -1,10 +1,17 @@
-import { Server } from "socket.io";
+const express = require('express');
+const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require('socket.io');
+const cors = require('cors');
+
+app.use(cors());
 
 const io = new Server({
     cors: {
         origin: "http://localhost:3000"
     }
- });
+});
 
 let users = [];
 
@@ -64,3 +71,4 @@ io.on("connection", (socket) => {
 });
 
 io.listen(process.env.PORT || 5000);
+
