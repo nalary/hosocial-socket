@@ -1,19 +1,17 @@
-const app = require("express")();
+const express = require("express");
+const cors = require('cors');
+
+const app = express();
+app.use(cors());
+
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer, {
     cors: {
         origin: "http://localhost:3000"
     }
 });
-const cors = require('cors');
 
-app.use(cors());
 
-// const io = new Server({
-//     cors: {
-//         origin: "http://localhost:3000"
-//     }
-// });
 
 let users = [];
 
