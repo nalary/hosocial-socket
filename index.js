@@ -12,7 +12,6 @@ const io = require("socket.io")(httpServer, {
 });
 
 
-
 let users = [];
 
 const addUser = (userId, socketId) => {
@@ -72,5 +71,5 @@ io.on("connection", (socket) => {
 
 // io.listen(process.env.PORT || 5000);
 httpServer.listen(process.env.PORT || 4000, () => {
-    console.log("server on");
+    console.log("socket.io server on");
 });
