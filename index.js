@@ -1,19 +1,4 @@
-const express = require("express");
-const cors = require('cors');
-
-const app = express();
-app.use(cors());
-
-const httpServer = require("http").createServer(app);
-const io = require("socket.io")(httpServer, {
-    cors: {
-        origin: "*",
-        methods: ["GET", "POST"],
-        transports: ['websocket', 'polling'],
-    },
-    allowEIO3: true
-});
-
+const io = require("socket.io")();
 
 let users = [];
 
@@ -72,7 +57,4 @@ io.on("connection", (socket) => {
     });
 });
 
-// io.listen(process.env.PORT || 5000);
-httpServer.listen(process.env.PORT || 4000, () => {
-    console.log("socket.io server on");
-});
+io.listen(process.env.PORT || 5000);
