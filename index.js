@@ -1,4 +1,11 @@
-const io = require("socket.io")();
+// const io = require("socket.io")();
+import { Server } from "socket.io";
+
+const io = new Server({
+    cors: {
+        origin: "http://localhost:3000"
+    }
+ });
 
 let users = [];
 
