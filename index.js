@@ -3,9 +3,11 @@ import { Server } from "socket.io";
 
 const io = new Server({
     cors: {
-        origin: "http://localhost:3000",
+        origins: "*:*",
         methods: ["GET", "POST"],
-        credentials: true
+        allowedHeaders: ["content-type"],
+        pingTimeout: 7000,
+        pingInterval: 3000
     }
  });
 
