@@ -1,7 +1,5 @@
 // const io = require("socket.io")();
-import { Server } from "socket.io";
-
-const io = new Server({
+const io = require('socket.io')({
     cors: {
         origins: "*:*",
         methods: ["GET", "POST"],
