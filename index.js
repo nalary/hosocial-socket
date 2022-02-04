@@ -1,4 +1,3 @@
-// const io = require("socket.io")();
 const io = require('socket.io')({
     cors: {
         origins: "*:*",
@@ -43,27 +42,24 @@ io.on("connection", (socket) => {
         });
     });
 
-    socket.on("sendNotification", ({ senderId, receiverId, type }) => {
+    socket.on("sendNotification", ({ senderName, fullName, receiverId, type }) => {
+        console.log((fullName || senderName) + " sendNotification " + type);
+
         const receiver = getUser(receiverId);
         io.to(receiver?.socketId).emit("getNotification", {
-            senderId,
+            senderName,
+            fullName,
             type
-        });
-    });
-
-    socket.on("sendText", ({ senderId, receiverId, text }) => {
-        const receiver = getUser(receiverId);
-        io.to(receiver?.socketId).emit("getText", {
-            senderId,
-            text
         });
     });
 
     // when disconnect
     socket.on("disconnect", () => {
         console.log("a user disconnected.");
+        
         removeUser(socket.id);
+        io.emit('userLeft', users);
     });
 });
 
-io.listen(process.env.PORT || 5000);
+io.listen(process.env.PORT || 4000);
